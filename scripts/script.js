@@ -2,9 +2,9 @@
 import lottie from 'lottie-web';
 
 lottie.loadAnimation({
-  container: document.getElementById('nav-elements'), // the dom element
+  container: document.getElementById('animation'), // the dom element
   renderer: 'svg',
-  loop: true,
+  loop: false,
   autoplay: true,
-  path: '/animation/ballz.json', // animation data
+  path: '/animation/Start-Test-01.json', // animation data
 });
