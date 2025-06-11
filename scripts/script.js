@@ -8,3 +8,15 @@ lottie.loadAnimation({
   autoplay: true,
   path: '/animation/Start-Test-01.json', // animation data
 });
+
+let accordionsItems = document.querySelectorAll('.accordion li');
+
+accordionsItems.forEach((item) => {
+  item.addEventListener('click', () => {
+    accordionsItems.forEach((item) => {
+      item.classList.remove('opened');
+    });
+
+    item.classList.add('opened');
+  });
+});
