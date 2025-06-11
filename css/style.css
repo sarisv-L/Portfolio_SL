@@ -143,6 +143,7 @@ p {
   text-wrap: pretty;
   font-family: 'Jost';
   font-weight: 300;
+  color: white;
 }
 
 a {
@@ -322,12 +323,41 @@ a {
   gap: 20px;
 }
 
+.accordion .item-1 {
+  background-image: url('/img/Pfaffstrasse_Wohnen_cam01_Web-min.jpg');
+  background-size: cover;
+  background-position: center;
+  background-repeat: no-repeat;
+  transition: background-image 1s ease-in-out;
+  /* Add a class for the next image to enable smooth transition */
+}
+
 .accordion-item {
-  transition: all 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+  transition-property: flex-basis, background-size, padding;
+  transition-duration: 4s;
+  transition-timing-function: ease-in-out;
+  position: relative;
+}
+
+.accordion-item.opened:hover .accordion-text {
+  background: linear-gradient(180deg, rgba(21, 22, 24, 0.24) 0%, #151618 100%);
+  cursor: pointer;
+}
+
+.accordion-text {
+  position: relative;
+  pointer-events: none;
+  padding: 2.5rem;
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-end;
+  gap: 2rem;
+  height: 100%;
+  width: 100%;
 }
 
 .opened {
-  /* background-size: 32rem; */
+  background-size: 32rem;
   flex-basis: 100rem;
   border-radius: none;
   cursor: auto;
