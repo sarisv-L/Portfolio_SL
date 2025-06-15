@@ -51,7 +51,7 @@ accordionsItems.forEach((item) => {
   showSlide(currentSlide);
 
   // Listen for accordion open/close
-  item.addEventListener('transitioned', () => {
+  item.addEventListener('click', () => {
     if (item.classList.contains('opened')) {
       startSlideshow();
     } else {

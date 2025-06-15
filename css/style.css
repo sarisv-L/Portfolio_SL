@@ -118,6 +118,10 @@ h6 {
   --yellow: #eee642;
 }
 
+ul {
+  padding: 0;
+}
+
 /* Typo */
 
 h1,
@@ -130,13 +134,17 @@ h6 {
   font-weight: 900;
   /* text-transform: uppercase; */
   line-height: 1.4;
+  text-transform: uppercase;
 }
 h1 {
   color: white;
-  font-size: 27.375rem;
+  font-size: 27rem;
 }
 h2 {
-  font-size: 3rem;
+  font-size: 8rem;
+}
+.circle-3d h3 {
+  font-size: 3.5rem;
 }
 
 p {
@@ -327,16 +335,16 @@ a {
   gap: 20px;
 }
 
-.accordion-item {
+.accordion-item.opened {
   transition-property: flex-basis, background-size, padding;
-  transition-duration: 4s;
+  transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
   position: relative;
 }
 
 /* Image Slider */
 
-figure {
+.work-3d figure {
   width: 100%; /* always the expanded width */
   height: 100%; /* always the expanded height */
   margin: 0;
@@ -347,7 +355,7 @@ figure {
   overflow: hidden;
 }
 
-figure .slide {
+.work-3d figure .slide {
   position: absolute;
   top: 0;
   left: 0;
@@ -360,12 +368,12 @@ figure .slide {
   z-index: 1;
 }
 
-figure .slide.active {
+.work-3d figure .slide.active {
   opacity: 1;
   z-index: 2;
 }
 
-figure img {
+.work-3d figure img {
   width: 100%;
   height: 100%;
   display: block;
@@ -373,7 +381,7 @@ figure img {
   border-radius: inherit;
 }
 
-figcaption {
+.work-3d figcaption {
   display: none;
   position: static;
   pointer-events: auto;
@@ -407,7 +415,7 @@ figcaption {
 
 .opened {
   background-size: 32rem;
-  flex-basis: 200rem;
+  flex-basis: 160rem;
   border-radius: none;
   cursor: auto;
 }
@@ -428,14 +436,79 @@ figcaption {
   max-width: 300px;
 }
 
+.rhinoceros {
+  align-self: flex-start;
+  padding-left: 60px;
+  margin-bottom: 0;
+}
+
+/* ================================================= */
+/* ===================== Webdesign =============== */
+/* ================================================= */
+
+section.webdesign {
+  display: flex;
+  align-items: center;
+  gap: 2rem;
+  padding: 4rem 0;
+}
+.projects {
+  position: relative;
+  padding: 100px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 60px;
+  width: 100vw;
+  box-sizing: border-box;
+}
+
+.card.item-1 {
+  align-self: flex-end;
+}
+
+figure {
+  width: 80vw;
+  display: flex;
+  align-items: center;
+  background: black;
+  color: white;
+  border-radius: 6rem 0 0 6rem;
+  padding: 6rem;
+  gap: 2rem;
+  overflow: hidden;
+}
+
+.image-container {
+  width: 100%;
+  max-width: 400px;
+  height: 350px;
+  flex-shrink: 0;
+  overflow: hidden;
+}
+.image-container img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; /* Fill the container and crop excess */
+  object-position: top; /* Center crop — change to "top", "left", etc. if needed */
+  display: block;
+}
+
+.image-container img:hover {
+  transform: scale(1.1);
+  transition: transform 0.5s ease-in-out;
+}
+
+figcaption {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+figcaption h3 {
+  margin-bottom: 6px;
+}
+
 /* ================================================= */
 /* ===================== Animation =================== */
 /* ================================================= */
-/* #animation {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  pointer-events: none;
-  z-index: 999;
-} */
