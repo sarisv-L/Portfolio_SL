@@ -21,5 +21,8 @@
   "homepage": "https://github.com/sarisv-L/Portfolio_SL#readme",
   "devDependencies": {
     "vite": "^6.3.5"
+  },
+  "dependencies": {
+    "gsap": "^3.13.0"
   }
 }

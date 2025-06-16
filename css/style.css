@@ -53,6 +53,7 @@
 /* 2. Remove default margin */
 * {
   margin: 0;
+  padding: 0;
 }
 /* 3. Enable keyword animations */
 @media (prefers-reduced-motion: no-preference) {
@@ -138,7 +139,7 @@ h6 {
 }
 h1 {
   color: white;
-  font-size: 27rem;
+  font-size: 25rem;
 }
 h2 {
   font-size: 8rem;
@@ -152,6 +153,7 @@ p {
   font-family: 'Jost';
   font-weight: 300;
   color: rgba(255, 255, 255, 0.85);
+  line-height: 1.6;
 }
 
 a {
@@ -167,18 +169,23 @@ a {
   position: relative;
   max-width: 1440px;
   margin: 0 auto;
-  overflow: hidden;
-  background: rgba(128, 128, 128, 0.325);
+  /* overflow: hidden; */
 }
 
 /* ================================================= */
 /* =====================HERO */
 /* ================================================= */
 #navbar {
-  margin: 60px;
+  display: flex;
   align-items: center;
   justify-content: space-between;
+  gap: 60px;
+  padding: 60px 0;
   height: auto;
+}
+
+#logo {
+  display: inline-block;
 }
 
 #logo img {
@@ -187,16 +194,14 @@ a {
 }
 
 #nav-elements {
-  position: absolute;
-  top: 60px;
-  left: 800px;
   display: flex;
+  position: static;
 }
 
 #nav-elements ul {
   margin: 0;
   padding: 0;
-  gap: 20px;
+  gap: 40px;
   display: flex;
   list-style: none;
 }
@@ -230,9 +235,14 @@ a {
   color: black;
 }
 
+#nav-elements ul li:hover {
+  box-shadow: 6px 6px rgba(0, 0, 0, 0.5);
+  transition: box-shadow 0.3s ease-in-out;
+}
+
 /* MY FACE */
 
-.my-face {
+#my-face {
   background: black;
   width: 15rem;
   height: 15rem;
@@ -244,7 +254,7 @@ a {
   justify-content: center;
   overflow: hidden;
 }
-.my-face img {
+#my-face img {
   display: block;
   max-width: 100%;
 }
@@ -256,15 +266,7 @@ a {
   position: relative;
 }
 
-.small {
-  position: absolute;
-  left: 578px;
-  width: 7rem;
-  height: 7rem;
-  align-self: flex-end;
-}
-
-/* Introduction */
+/* Intro-Text */
 
 .intro-text {
   display: flex;
@@ -445,16 +447,25 @@ a {
 /* ================================================= */
 /* ===================== Webdesign =============== */
 /* ================================================= */
-
 section.webdesign {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  justify-content: center;
   gap: 2rem;
-  padding: 4rem 0;
+}
+
+.web-header {
+  transform: translate(0, -30%);
+  transition: transform 0.5s ease-in-out;
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
 }
 .projects {
   position: relative;
-  padding: 100px 0;
+  padding-bottom: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
@@ -464,28 +475,45 @@ section.webdesign {
   box-sizing: border-box;
 }
 
-.card.item-1 {
+.card.item-1,
+.card.item-3 {
   align-self: flex-end;
 }
+.card.item-2 {
+  align-self: flex-start;
+  flex-direction: row-reverse;
+  border-radius: 0 9rem 9rem 0;
+  box-shadow: -12px 12px rgba(148, 148, 148, 0.5);
+}
 
-figure {
+.card {
   width: 80vw;
   display: flex;
+  justify-content: center;
   align-items: center;
   background: black;
   color: white;
-  border-radius: 6rem 0 0 6rem;
+  border-radius: 9rem 0 0 9rem;
   padding: 6rem;
   gap: 2rem;
   overflow: hidden;
+  box-shadow: 12px 12px rgba(148, 148, 148, 0.5);
 }
 
 .image-container {
   width: 100%;
-  max-width: 400px;
-  height: 350px;
+  max-width: 350px;
+  height: 250px;
   flex-shrink: 0;
   overflow: hidden;
+  position: relative;
+  border-radius: 50px;
+}
+
+/* Desaturate image by default */
+.image-container img {
+  filter: grayscale(1) saturate(0.75) brightness(0.85);
+  transition: filter 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 .image-container img {
   width: 100%;
@@ -496,19 +524,42 @@ figure {
 }
 
 .image-container img:hover {
-  transform: scale(1.1);
-  transition: transform 0.5s ease-in-out;
+  filter: grayscale(0) saturate(1) brightness(1);
+  transform: scale(1.02);
+  transition: filter 0.5s ease-in-out, transform 0.5s ease-in-out;
 }
 
 figcaption {
+  margin-left: 60px;
+  max-width: 300px;
   display: flex;
   flex-direction: column;
   gap: 2rem;
 }
 figcaption h3 {
-  margin-bottom: 6px;
+  margin-bottom: 20px;
+}
+figcaption a {
+  text-decoration: none;
+  color: var(--yellow);
+  box-shadow: inset 0 0 0 0;
+
+  margin: 0 -0.25rem;
+  padding: 0 0.25rem;
+  transition: color 0.3s ease-in-out, box-shadow 0.3s ease-in-out;
+}
+figcaption a:hover {
+  box-shadow: inset 120px 0 0 0 var(--yellow);
+  color: black;
 }
 
 /* ================================================= */
-/* ===================== Animation =================== */
+/* ===================== Graphic Design =================== */
 /* ================================================= */
+.graphic-design {
+  width: 100%;
+  height: 100vh;
+  background: black;
+  background-size: cover;
+  position: relative;
+}

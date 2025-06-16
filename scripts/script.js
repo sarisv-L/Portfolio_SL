@@ -1,5 +1,6 @@
 // ...existing code...
 import lottie from 'lottie-web';
+import { gsap } from 'gsap';
 
 lottie.loadAnimation({
   container: document.getElementById('animation'), // the dom element
@@ -61,3 +62,37 @@ accordionsItems.forEach((item) => {
     }
   });
 });
+
+/// My Face Animation Intro
+const faceCircle = document.getElementById('my-face');
+const myFaceImg = faceCircle.querySelector('img');
+
+// Mouse move stuff
+const activateFace = (event) => {
+  let boundBox = faceCircle.getBoundingClientRect();
+  const circleStrength = 40;
+  const faceStrength = 80;
+  const newX = (event.clientX - boundBox.left) / faceCircle.offsetWidth - 0.5;
+  const newY = (event.clientY - boundBox.top) / faceCircle.offsetHeight - 0.5;
+
+  // Move Circle to mouse position
+  gsap.to(faceCircle, {
+    x: newX * circleStrength,
+    y: newY * circleStrength,
+    duration: 1,
+    ease: 'power4.easeOut',
+  });
+  gsap.to(myFaceImg, {
+    x: newX * faceStrength,
+    y: newY * faceStrength,
+    duration: 1,
+    ease: 'power4.easeOut',
+  });
+};
+
+// Mouse leave stuff
+const resetFace = (event) => {};
+
+// Mouse move event listener
+faceCircle.addEventListener('mousemove', activateFace);
+faceCircle.addEventListener('mouseleave', resetFace);

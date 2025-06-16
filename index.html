@@ -17,23 +17,24 @@
           <nav id="nav-elements">
             <ul>
               <li class="work">
-                <a href="#">Work</a>
+                <a href="#work-section">Work</a>
               </li>
+
               <li class="contact">
-                <a href="#">Contact </a>
+                <a href="#">Contact</a>
               </li>
             </ul>
           </nav>
         </div>
-        <div class="my-face circle">
+        <div id="my-face">
           <img
             src="/img/my-face.jpg"
             alt="cut out black and white image of my face"
-            width="120"
+            width="100"
           />
         </div>
+
         <div class="circle-wrapper">
-          <div class="small circle"></div>
           <div class="intro-text circle">
             <p>
               Hi! I'm a web designer with a deep passion for creating immersive,
@@ -48,9 +49,9 @@
       </div>
     </header>
     <section>
-      <div class="wrapper work-3d">
+      <div class="work-3d">
         <h1>Work</h1>
-        <div class="circle circle-3d"><h3>3D</h3></div>
+        <div id="work-section" class="circle circle-3d"><h3>3D</h3></div>
         <div class="works">
           <ul class="accordion">
             <li class="accordion-item item-1 opened">
@@ -96,7 +97,9 @@
     <!-- WEBDESIGN SECTION -->
 
     <section class="webdesign">
-      <!-- <h2 class="web-header">Webdesign</h2> -->
+      <div class="web-header">
+        <h2>Webdesign</h2>
+      </div>
 
       <div class="projects">
         <!-- Item-1 -->
@@ -104,8 +107,10 @@
           <div class="image-container">
             <a href="#">
               <img
-                src="/img/Design_Hauptseite.jpg"
+                src="/img/Design_Hauptseite-small.jpg"
                 alt="Ak Umwelt Hautseite Screendesign"
+                width="428px"
+                height="322px"
             /></a>
           </div>
           <figcaption>
@@ -122,9 +127,55 @@
         </figure>
 
         <!-- item 2 -->
+        <figure class="card item-2">
+          <div class="image-container">
+            <a href="#">
+              <img
+                src="/img/chatApp-Hauptseite-small.jpg"
+                alt="chatapp Hero Thumbnail Image"
+              />
+            </a>
+          </div>
+          <figcaption>
+            <main>
+              <h3 class="card-title">Concept</h3>
+              <p>
+                Ak-Umwelt Website Relaunch built from scratch. Screendesign +
+                Wireframe done in Figma.
+              </p>
+            </main>
+
+            <footer><a href="#">more info →</a></footer>
+          </figcaption>
+        </figure>
 
         <!-- Item-3 -->
+        <figure class="card item-3">
+          <div class="image-container">
+            <a href="#">
+              <img
+                src="/img/portfolio-small.jpg"
+                alt="Ak Umwelt Hautseite Screendesign"
+            /></a>
+          </div>
+          <figcaption>
+            <main>
+              <h3 class="card-title">Concept</h3>
+              <p>
+                Ak-Umwelt Website Relaunch built from scratch. Screendesign +
+                Wireframe done in Figma.
+              </p>
+            </main>
+
+            <footer><a href="#">more info →</a></footer>
+          </figcaption>
+        </figure>
       </div>
+    </section>
+    <!-- Section Graphic Design -->
+    <section>
+      <div class="graphic-design"></div>
+      .
     </section>
 
     <script src="scripts/script.js" type="module"></script>
