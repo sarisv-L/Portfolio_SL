@@ -59,6 +59,7 @@
 @media (prefers-reduced-motion: no-preference) {
   html {
     interpolate-size: allow-keywords;
+    scroll-behavior: smooth;
   }
 }
 body {
@@ -161,6 +162,30 @@ a {
   font-weight: 900;
 }
 
+/* LENNIS CSS */
+html.lenis,
+html.lenis body {
+  height: auto;
+}
+
+.lenis:not(.lenis-autoToggle).lenis-stopped {
+  overflow: clip;
+}
+
+.lenis.lenis-smooth [data-lenis-prevent] {
+  overscroll-behavior: contain;
+}
+
+.lenis.lenis-smooth iframe {
+  pointer-events: none;
+}
+
+.lenis.lenis-autoToggle {
+  transition-property: overflow;
+  transition-duration: 1ms;
+  transition-behavior: allow-discrete;
+}
+
 /* ================================================= */
 /*========================== Styling =============================== */
 /* ================================================= */
@@ -204,6 +229,7 @@ a {
   gap: 40px;
   display: flex;
   list-style: none;
+  overflow: visible; /* Allow scaled children to overflow */
 }
 #nav-elements li {
   background: rgb(0, 0, 0);
@@ -234,10 +260,17 @@ a {
 #nav-elements ul .contact a {
   color: black;
 }
+li {
+  display: block;
+}
+#nav-elements li.menu-button {
+  box-shadow: 4px 4px rgba(0, 0, 0, 0.1);
+  transition: box-shadow 150ms ease;
+  transform-origin: center;
+}
 
-#nav-elements ul li:hover {
+#nav-elements li:hover {
   box-shadow: 6px 6px rgba(0, 0, 0, 0.5);
-  transition: box-shadow 0.3s ease-in-out;
 }
 
 /* MY FACE */
@@ -255,7 +288,9 @@ a {
   overflow: hidden;
 }
 #my-face img {
-  display: block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   max-width: 100%;
 }
 
@@ -287,11 +322,6 @@ a {
   color: white;
   text-align: center;
   margin: 0;
-}
-
-.circle {
-  background: black;
-  border-radius: 50%;
 }
 
 /* ================================================= */
@@ -562,4 +592,131 @@ figcaption a:hover {
   background: black;
   background-size: cover;
   position: relative;
+}
+
+/* ================================================= */
+/* ===================== Contact =================== */
+/* ================================================= */
+#contact {
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  background: var(--yellow);
+  min-height: 400px;
+  position: relative;
+  overflow: hidden;
+}
+
+#contact h2 {
+  font-family: 'Fraunces', serif;
+  font-size: 7vw;
+  font-weight: 900;
+  color: #111;
+  margin: 0 0 0 4vw;
+  letter-spacing: 0.05em;
+  flex: 1 1 50%;
+  z-index: 2;
+}
+
+.form-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background: transparent;
+  width: 60vw;
+  min-height: 100vh;
+  position: relative;
+  z-index: 2;
+}
+
+.contact-form {
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+  align-items: flex-end;
+  background: transparent;
+  padding: 0 4vw 0 0;
+  width: 100%;
+  max-width: 400px;
+  z-index: 2;
+}
+
+.contact-form input,
+.contact-form textarea {
+  width: 350px;
+  max-width: 90vw;
+  padding: 0.8em 1.5em;
+  border-radius: 2em;
+  border: none;
+  background: #f6f6f6;
+  font-size: 1.2rem;
+  font-family: 'Jost', sans-serif;
+  color: #222;
+  box-shadow: none;
+  outline: none;
+  resize: none;
+}
+
+.contact-form textarea {
+  min-height: 3.5em;
+  max-height: 8em;
+}
+
+.contact-form button {
+  background: var(--yellow);
+  color: black;
+  font-family: 'Fraunces', serif;
+  font-weight: 900;
+  font-size: 2rem;
+  border: none;
+  border-radius: 2em;
+  padding: 0.5em 2.5em;
+  margin-top: 0.5em;
+  box-shadow: none;
+  cursor: pointer;
+  transition: background 0.2s, color 0.2s, transform 0.2s;
+}
+
+.contact-form button:hover {
+  background: #ffffff;
+  color: black;
+  transform: scale(1.15);
+}
+
+/* Decorative curved cutout on the right */
+#contact .form-container::before {
+  content: '';
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 60vw;
+  height: 100%;
+  background: black;
+  border-radius: 50% 0 0 50% / 50% 0 0 50%;
+  z-index: 1;
+}
+
+.contact-form,
+#contact h2 {
+  position: relative;
+  font-size: 8rem;
+  font-weight: 900;
+}
+
+/* FOOTER */
+#footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  background: black;
+  color: white;
+  padding: 2rem;
+}
+.rechtliches {
+  display: flex;
+  gap: 2rem;
+  margin: 0 80px;
+}
+#footer h5 {
+  font-weight: 400;
 }

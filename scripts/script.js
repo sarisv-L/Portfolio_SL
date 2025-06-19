@@ -1,6 +1,7 @@
 // ...existing code...
 import lottie from 'lottie-web';
 import { gsap } from 'gsap';
+import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 lottie.loadAnimation({
   container: document.getElementById('animation'), // the dom element
@@ -91,8 +92,124 @@ const activateFace = (event) => {
 };
 
 // Mouse leave stuff
-const resetFace = (event) => {};
+const resetFace = (event) => {
+  gsap.to(faceCircle, {
+    x: 0,
+    y: 0,
+    duration: 1,
+    ease: 'Elastic.easeOut',
+  });
+  gsap.to(myFaceImg, {
+    x: 0,
+    y: 0,
+    duration: 1,
+    ease: 'Elastic.easeOut',
+  });
+};
 
 // Mouse move event listener
 faceCircle.addEventListener('mousemove', activateFace);
 faceCircle.addEventListener('mouseleave', resetFace);
+
+/////// LENIS SCROLLING ////////////////////////////////////////
+
+// Initialize Lenis
+// Initialize a new Lenis instance for smooth scrolling
+const lenis = new Lenis();
+
+// Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
+lenis.on('scroll', ScrollTrigger.update);
+
+// Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
+// This ensures Lenis's smooth scroll animation updates on each GSAP tick
+gsap.ticker.add((time) => {
+  lenis.raf(time * 1000); // Convert time from seconds to milliseconds
+});
+
+// Disable lag smoothing in GSAP to prevent any delay in scroll animations
+gsap.ticker.lagSmoothing(0);
+
+//////// GSAP Animation //////////////////////////
+
+window.addEventListener('DOMContentLoaded', () => {
+  const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 1.2 } });
+
+  tl.from('#logo', {
+    opacity: 0,
+    scale: 0.5,
+    xPercent: -300,
+    rotation: 180, // Start rotated 180deg
+  })
+    .from(
+      '.menu-button',
+      {
+        opacity: 0,
+        y: -20,
+        stagger: 0.2,
+      },
+      '-=0.3'
+    )
+    .from(
+      '.profile-pic',
+      {
+        opacity: 0,
+        scale: 0,
+        duration: 0.8,
+        ease: 'back.out(1.7)',
+      },
+      '-=0.2'
+    )
+    .from(
+      '.circle-wrapper',
+      {
+        opacity: 0,
+        xPercent: 100,
+        rotation: 180, // Start rotated 180deg
+      },
+      '-=0.4'
+    );
+});
+
+//// Menu Button Hover
+// Animate on hover using GSAP
+const buttons = document.querySelectorAll('.menu-button');
+
+buttons.forEach((button) => {
+  const link = button.querySelector('a');
+
+  button.addEventListener('mouseenter', () => {
+    // bounce + scale effect
+    gsap.to(button, {
+      scale: 1.2,
+      y: -5,
+      duration: 0.4,
+      ease: 'bounce.out',
+    });
+
+    // offset text slightly
+    gsap.to(link, {
+      x: 4,
+      y: -2,
+      duration: 0.3,
+      ease: 'power2.out',
+    });
+  });
+
+  button.addEventListener('mouseleave', () => {
+    // reset scale
+    gsap.to(button, {
+      scale: 1,
+      y: 0,
+      duration: 0.3,
+      ease: 'power2.inOut',
+    });
+
+    // reset text offset
+    gsap.to(link, {
+      x: 0,
+      y: 0,
+      duration: 0.3,
+      ease: 'power2.inOut',
+    });
+  });
+});
