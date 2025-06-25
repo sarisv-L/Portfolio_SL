@@ -140,13 +140,17 @@ h6 {
 }
 h1 {
   color: white;
-  font-size: 25rem;
+  font-size: clamp(3rem, 20vw, 25rem);
 }
 h2 {
-  font-size: 8rem;
+  font-size: clamp(2rem, 15vw, 8rem);
 }
 .circle-3d h3 {
   font-size: 3.5rem;
+}
+h5 {
+  font-size: 1.5rem;
+  font-weight: 300;
 }
 
 p {
@@ -194,33 +198,32 @@ html.lenis body {
   position: relative;
   max-width: 1440px;
   margin: 0 auto;
-  /* overflow: hidden; */
 }
 
 /* ================================================= */
 /* =====================HERO */
 /* ================================================= */
+
 #navbar {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 60px;
-  padding: 60px 0;
-  height: auto;
+  padding: 3rem 2rem;
+  /* height: auto; */
 }
 
 #logo {
   display: inline-block;
+  min-width: 64px;
+  min-height: 64px;
+  margin: 1em;
 }
 
 #logo img {
-  height: 5rem;
-  width: 5rem;
-}
-
-#nav-elements {
-  display: flex;
-  position: static;
+  width: 100%;
+  height: 100%;
+  object-fit: contain;
+  display: block;
 }
 
 #nav-elements ul {
@@ -266,7 +269,7 @@ li {
 #nav-elements li.menu-button {
   box-shadow: 4px 4px rgba(0, 0, 0, 0.1);
   transition: box-shadow 150ms ease;
-  transform-origin: center;
+  transform-origin: center; /* Ensure the shadow expands from the left */
 }
 
 #nav-elements li:hover {
@@ -279,8 +282,7 @@ li {
   background: black;
   width: 15rem;
   height: 15rem;
-  margin-left: 200px;
-  margin-top: 140px;
+  margin: 0 auto 1em 15em;
   border-radius: 50%;
   display: flex;
   align-items: center;
@@ -292,13 +294,6 @@ li {
   justify-content: center;
   align-items: center;
   max-width: 100%;
-}
-
-/* Intro Text */
-
-.circle-wrapper {
-  display: flex;
-  position: relative;
 }
 
 /* Intro-Text */
@@ -317,8 +312,8 @@ li {
 }
 .intro-text p {
   font-family: 'Jost';
-  font-size: 2.25rem;
-  padding: 60px;
+  font-size: 2.5em;
+  padding: 3em;
   color: white;
   text-align: center;
   margin: 0;
@@ -327,6 +322,11 @@ li {
 /* ================================================= */
 /* ===================== 3D Section */
 /* ================================================= */
+
+.circle {
+  border-radius: 50%;
+  display: flex;
+}
 .work-3d {
   display: flex;
   flex-direction: column;
@@ -364,28 +364,94 @@ li {
 .accordion {
   margin-top: 60px;
   display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: nowrap;
   gap: 20px;
+  align-items: stretch;
 }
-
-.accordion-item.opened {
-  transition-property: flex-basis, background-size, padding;
+.accordion-item {
+  position: relative;
+  overflow: hidden;
+  flex: 0 0 4rem;
+  min-height: 30rem;
+  background: rgb(255, 255, 255);
+  border-radius: 50px;
+  transition: flex-basis, padding;
+}
+.accordion-item {
   transition-duration: 0.5s;
   transition-timing-function: ease-in-out;
+}
+.accordion-item.opened {
+  flex-basis: 50rem;
+  cursor: auto;
+}
+.accordion-item.opened {
+  transition-property: flex-basis, padding, border-radius;
+  transition-duration: 0.3s;
+  transition-timing-function: ease-in-out;
   position: relative;
+  transform-origin: right center;
+}
+.accordion-item:hover:not(.opened) {
+  flex-basis: 6rem;
+  cursor: pointer;
+}
+
+/* Ensure figcaption moves down (hides) when not opened */
+.accordion-item:not(.opened) figcaption {
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out, transform 0.3s ease-in-out;
+}
+
+.accordion-item figcaption {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  min-width: 100%;
+  padding: 2em;
+  gap: 1em;
+  background: linear-gradient(
+    to bottom,
+    rgba(255, 255, 255, 0.01) 0%,
+    rgba(0, 0, 0, 0.8) 100%
+  );
+  color: var(--yellow);
+  z-index: 3;
+  display: flex;
+  align-items: left;
+  justify-content: center;
+  opacity: 0;
+  pointer-events: auto;
+  transform: translateY(100%); /* Start lower */
+  transition: opacity 0.3s ease-in-out 0.3s, transform 0.3s ease-in-out 0.3s;
+}
+.accordion-item.opened figcaption {
+  opacity: 1;
+  transform: translate(0);
+  transition-delay: 1.3s;
+  display: flex;
+  transition: opacity ease-in-out, transform 0.3s ease-in-out;
+}
+.accordion-item:not(.opened) figcaption {
+  opacity: 0;
+  transform: translateY(100%);
+  pointer-events: none;
+}
+.accordion-item.opened figcaption {
+  display: flex;
+  transition-delay: 0.7s;
+}
+.accordion-item figcaption h3 {
+  margin: 0;
+  padding: 0;
 }
 
 /* Image Slider */
-
-.work-3d figure {
-  width: 100%; /* always the expanded width */
-  height: 100%; /* always the expanded height */
-  margin: 0;
-  /* position: absolute; */
-  top: 0;
-  left: 0;
-  border-radius: inherit;
-  overflow: hidden;
-}
 
 .work-3d figure .slide {
   position: absolute;
@@ -413,56 +479,6 @@ li {
   border-radius: inherit;
 }
 
-.work-3d figcaption {
-  display: none;
-  position: static;
-  pointer-events: auto;
-  padding: 2rem;
-  margin-top: 1rem;
-  background: white;
-  color: black;
-  border-radius: 30px;
-  box-shadow: 0 2px 16px rgba(0, 0, 0, 0.08);
-  width: 100%;
-  max-width: 100%;
-}
-
-.accordion-item.opened figcaption {
-  display: block;
-  position: absolute;
-  bottom: 0;
-  left: 0;
-  width: 100%;
-  background: rgba(255, 255, 255, 0.384);
-  color: black;
-  border-radius: 0 0 30px 30px;
-  z-index: 10;
-}
-
-.accordion-item.opened figcaption h3,
-.accordion-item.opened figcaption p {
-  color: black;
-  margin: 0;
-}
-
-.opened {
-  background-size: 32rem;
-  flex-basis: 160rem;
-  border-radius: none;
-  cursor: auto;
-}
-
-.accordion-item,
-.accordion li {
-  position: relative;
-  background: rgb(255, 255, 255);
-  border-radius: 50px;
-  transition: width 0.5s, height 0.5s, border-radius 0.5s;
-  overflow: hidden;
-  width: 200px;
-  height: 600px;
-}
-
 .description-text {
   margin: 60px 120px;
   max-width: 300px;
@@ -477,31 +493,20 @@ li {
 /* ================================================= */
 /* ===================== Webdesign =============== */
 /* ================================================= */
-section.webdesign {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 2rem;
-}
 
 .web-header {
   transform: translate(0, -30%);
-  transition: transform 0.5s ease-in-out;
-  width: 100%;
-  display: flex;
-  align-items: center;
-  justify-content: flex-start;
+}
+.web-header h2 {
+  font-size: clamp(2rem, 10vw, 8rem);
 }
 .projects {
   position: relative;
-  padding-bottom: 100px;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: flex-start;
-  gap: 60px;
-  width: 100vw;
+  gap: 2rem;
   box-sizing: border-box;
 }
 
@@ -517,27 +522,25 @@ section.webdesign {
 }
 
 .card {
-  width: 80vw;
   display: flex;
   justify-content: center;
   align-items: center;
   background: black;
   color: white;
   border-radius: 9rem 0 0 9rem;
-  padding: 6rem;
-  gap: 2rem;
+  padding: 5rem;
   overflow: hidden;
   box-shadow: 12px 12px rgba(148, 148, 148, 0.5);
 }
 
 .image-container {
-  width: 100%;
+  margin: 2rem 3rem;
   max-width: 350px;
-  height: 250px;
+  height: auto;
   flex-shrink: 0;
   overflow: hidden;
   position: relative;
-  border-radius: 50px;
+  border-radius: 30px;
 }
 
 /* Desaturate image by default */
@@ -560,7 +563,6 @@ section.webdesign {
 }
 
 figcaption {
-  margin-left: 60px;
   max-width: 300px;
   display: flex;
   flex-direction: column;
@@ -584,14 +586,51 @@ figcaption a:hover {
 }
 
 /* ================================================= */
-/* ===================== Graphic Design =================== */
+/* ===================== Skills =================== */
 /* ================================================= */
-.graphic-design {
-  width: 100%;
-  height: 100vh;
-  background: black;
-  background-size: cover;
+.skillz {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  background-color: black;
+  gap: 4rem;
+  margin: 60px 0;
+  padding: 100px;
+}
+.skillz::before {
+  content: 'SKILLS';
+  font-family: 'Fraunces', serif;
+  font-size: 4rem;
+  font-weight: 900;
+  color: white;
+  position: absolute;
+  top: 0;
+  left: 0;
+  transform: translate(0, -31%);
+  opacity: 1;
+  pointer-events: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 2;
+}
+.skillz {
   position: relative;
+  z-index: 2;
+}
+.kugel {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 10rem;
+  height: 10rem;
+  background-color: white;
+  border-radius: 50%;
+  text-align: center;
+}
+.kugel h5 {
+  font-family: jost;
+  font-weight: 600;
+  font-size: 1em;
 }
 
 /* ================================================= */
@@ -599,9 +638,8 @@ figcaption a:hover {
 /* ================================================= */
 #contact {
   display: flex;
-  align-items: center;
+  align-items: space-around;
   justify-content: flex-start;
-  background: var(--yellow);
   min-height: 400px;
   position: relative;
   overflow: hidden;
@@ -610,12 +648,11 @@ figcaption a:hover {
 #contact h2 {
   font-family: 'Fraunces', serif;
   font-size: 7vw;
-  font-weight: 900;
-  color: #111;
-  margin: 0 0 0 4vw;
+  font-weight: 300;
   letter-spacing: 0.05em;
   flex: 1 1 50%;
   z-index: 2;
+  align-self: center;
 }
 
 .form-container {
@@ -624,7 +661,7 @@ figcaption a:hover {
   align-items: center;
   background: transparent;
   width: 60vw;
-  min-height: 100vh;
+  padding: 60px 0;
   position: relative;
   z-index: 2;
 }
@@ -667,7 +704,7 @@ figcaption a:hover {
   color: black;
   font-family: 'Fraunces', serif;
   font-weight: 900;
-  font-size: 2rem;
+  font-size: 1.25rem;
   border: none;
   border-radius: 2em;
   padding: 0.5em 2.5em;
@@ -678,32 +715,13 @@ figcaption a:hover {
 }
 
 .contact-form button:hover {
-  background: #ffffff;
-  color: black;
+  background: black;
+  color: white;
   transform: scale(1.15);
 }
 
-/* Decorative curved cutout on the right */
-#contact .form-container::before {
-  content: '';
-  position: absolute;
-  left: 0;
-  top: 0;
-  width: 60vw;
-  height: 100%;
-  background: black;
-  border-radius: 50% 0 0 50% / 50% 0 0 50%;
-  z-index: 1;
-}
-
-.contact-form,
-#contact h2 {
-  position: relative;
-  font-size: 8rem;
-  font-weight: 900;
-}
-
 /* FOOTER */
+
 #footer {
   display: flex;
   align-items: center;
@@ -719,4 +737,111 @@ figcaption a:hover {
 }
 #footer h5 {
   font-weight: 400;
+}
+
+@media only screen and (max-width: 768px) {
+  #navbar {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    width: 100%;
+    padding: 2rem 0;
+  }
+
+  #nav-elements {
+    position: static;
+    left: unset;
+    top: unset;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+  }
+
+  #nav-elements ul {
+    margin-top: 2rem;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 1.5rem;
+    width: 100%;
+  }
+
+  #nav-elements li {
+    margin: 0.5rem 0;
+    width: 80vw;
+    max-width: 350px;
+  }
+
+  #my-face {
+    width: 12rem;
+    height: 12rem;
+    margin: 2rem auto;
+  }
+
+  .intro-text {
+    width: 100%;
+    margin: 0 auto;
+    height: auto;
+    border-radius: 0px;
+    padding: 2rem;
+  }
+  .intro-text p {
+    font-size: 1.5rem;
+    padding: 3rem;
+    /* line-height: 1.7rem; */
+  }
+
+  .circle-3d h2 {
+    font-size: 2.5rem;
+  }
+  .accordion {
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .accordion-item {
+    width: 100%;
+    height: auto;
+  }
+
+  .accordion-item.opened {
+    flex-basis: auto;
+    width: 100%;
+    height: auto;
+  }
+
+  .work-3d figure img {
+    object-fit: cover;
+  }
+
+  /* Accordion mobile setup */
+  .accordion {
+    flex-direction: column;
+    align-items: center;
+  }
+
+  .card,
+  .card.item-2 {
+    width: 100%;
+    max-width: 100vw;
+    flex-direction: column;
+    border-radius: 0;
+    padding: 2rem;
+    box-shadow: none;
+  }
+  .skillz {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(100px, 1fr));
+    background-color: black;
+    gap: 4rem;
+    margin: 60px 0;
+    padding: 100px;
+  }
+  #contact {
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 2rem;
+  }
 }

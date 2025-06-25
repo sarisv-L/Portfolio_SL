@@ -3,13 +3,16 @@ import lottie from 'lottie-web';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-lottie.loadAnimation({
-  container: document.getElementById('animation'), // the dom element
-  renderer: 'svg',
-  loop: false,
-  autoplay: true,
-  path: '/animation/Start-Test-01.json', // animation data
-});
+// Ensure GSAP plugins are registered
+gsap.registerPlugin(ScrollTrigger);
+
+// lottie.loadAnimation({
+//   container: document.getElementById('animation'), // the dom element
+//   renderer: 'svg',
+//   loop: false,
+//   autoplay: true,
+//   path: '/animation/Start-Test-01.json', // animation data
+// });
 
 let accordionsItems = document.querySelectorAll('.accordion-item');
 
@@ -38,7 +41,14 @@ accordionsItems.forEach((item) => {
 
   function startSlideshow() {
     if (intervalId || slides.length < 2) return;
+    // Only start if the accordion item is opened
+    if (!item.classList.contains('opened')) return;
     intervalId = setInterval(() => {
+      // Only advance slides if still opened
+      if (!item.classList.contains('opened')) {
+        stopSlideshow();
+        return;
+      }
       currentSlide = (currentSlide + 1) % slides.length;
       showSlide(currentSlide);
     }, 6000);
@@ -53,7 +63,7 @@ accordionsItems.forEach((item) => {
   showSlide(currentSlide);
 
   // Listen for accordion open/close
-  item.addEventListener('click', () => {
+  const observer = new MutationObserver(() => {
     if (item.classList.contains('opened')) {
       startSlideshow();
     } else {
@@ -62,6 +72,10 @@ accordionsItems.forEach((item) => {
       showSlide(currentSlide);
     }
   });
+  observer.observe(item, { attributes: true, attributeFilter: ['class'] });
+  if (item.classList.contains('opened')) {
+    startSlideshow();
+  }
 });
 
 /// My Face Animation Intro
@@ -178,12 +192,15 @@ buttons.forEach((button) => {
   const link = button.querySelector('a');
 
   button.addEventListener('mouseenter', () => {
+    // Kill any running tweens to prevent overlap
+    gsap.killTweensOf([button, link]);
     // bounce + scale effect
     gsap.to(button, {
       scale: 1.2,
       y: -5,
       duration: 0.4,
-      ease: 'bounce.out',
+      ease: 'ease.out',
+      overwrite: 'auto',
     });
 
     // offset text slightly
@@ -192,24 +209,35 @@ buttons.forEach((button) => {
       y: -2,
       duration: 0.3,
       ease: 'power2.out',
+      overwrite: 'auto',
     });
   });
 
   button.addEventListener('mouseleave', () => {
-    // reset scale
+    // Kill any running tweens to prevent overlap
+    gsap.killTweensOf([button, link]);
+    // reset scale and remove inline transforms to ensure proper reset
     gsap.to(button, {
       scale: 1,
       y: 0,
-      duration: 0.3,
+      duration: 0.2,
       ease: 'power2.inOut',
+      overwrite: 'auto',
+      onComplete: () => {
+        gsap.set(button, { clearProps: 'transform' });
+      },
     });
 
     // reset text offset
     gsap.to(link, {
       x: 0,
       y: 0,
-      duration: 0.3,
+      duration: 0.2,
       ease: 'power2.inOut',
+      overwrite: 'auto',
+      onComplete: () => {
+        gsap.set(link, { clearProps: 'transform' });
+      },
     });
   });
 });
