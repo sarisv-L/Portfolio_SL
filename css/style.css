@@ -234,20 +234,25 @@ html.lenis body {
   list-style: none;
   overflow: visible; /* Allow scaled children to overflow */
 }
-#nav-elements li {
+.menu-button {
   background: rgb(0, 0, 0);
-  padding: 20px;
-  width: 200px;
-  height: 64px;
-  text-align: center;
-  border-radius: 50px;
+  padding: 2em;
+  width: 14rem;
+  height: 4rem;
+  border-radius: 999px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: none;
+  overflow: hidden;
+  transform-origin: center center;
 }
 
 #nav-elements a {
   text-decoration: none;
   color: white;
   font-family: Fraunces;
-  font-size: 2.25rem;
+  font-size: 2em;
   text-align: center;
   display: flex;
   align-items: center;
@@ -734,7 +739,7 @@ figcaption a:hover {
   justify-content: space-between;
   background: black;
   color: white;
-  padding: 2rem;
+  padding: 0.2em;
 }
 .rechtliches {
   display: flex;
@@ -742,7 +747,19 @@ figcaption a:hover {
   margin: 0 80px;
 }
 #footer h5 {
-  font-weight: 400;
+  font-size: 0.7em;
+  font-weight: 300;
+}
+#footer a {
+  color: white;
+  text-decoration: none;
+  font-family: 'Jost', sans-serif;
+  font-weight: 300;
+  transition: transform 0.3s ease;
+}
+#footer a:hover {
+  text-decoration: underline;
+  transform: scale(1.05);
 }
 
 @media only screen and (max-width: 768px) {

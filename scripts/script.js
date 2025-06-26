@@ -1,18 +1,9 @@
 // ...existing code...
-import lottie from 'lottie-web';
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 // Ensure GSAP plugins are registered
 gsap.registerPlugin(ScrollTrigger);
-
-// lottie.loadAnimation({
-//   container: document.getElementById('animation'), // the dom element
-//   renderer: 'svg',
-//   loop: false,
-//   autoplay: true,
-//   path: '/animation/Start-Test-01.json', // animation data
-// });
 
 let accordionsItems = document.querySelectorAll('.accordion-item');
 
@@ -148,39 +139,49 @@ gsap.ticker.lagSmoothing(0);
 window.addEventListener('DOMContentLoaded', () => {
   const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 1.2 } });
 
-  tl.from('#logo', {
+  tl.from('.menu-button', {
     opacity: 0,
-    scale: 0.5,
-    xPercent: -300,
-    rotation: 180, // Start rotated 180deg
+    y: -80,
+    scale: 1,
+    duration: 1.5,
+    stagger: 0.25,
   })
+    // Start menu buttons as circles above their final position
+
     .from(
-      '.menu-button',
+      '#logo',
       {
+        x: -400,
+        y: -300,
         opacity: 0,
-        y: -20,
-        stagger: 0.2,
+        scale: 0,
+        xPercent: -100,
+        ease: 'back.out(1.2)',
       },
-      '-=0.3'
+      '-=1'
     )
+
     .from(
       '.profile-pic',
       {
+        x: -400,
+        y: -300,
         opacity: 0,
         scale: 0,
-        duration: 0.8,
-        ease: 'back.out(1.7)',
+        duration: 2,
+        ease: 'back.out(1.2)',
       },
       '-=0.2'
     )
     .from(
-      '.circle-wrapper',
+      '.intro-text',
       {
         opacity: 0,
-        xPercent: 100,
-        rotation: 180, // Start rotated 180deg
+        duration: 4,
+        ease: 'expo.inOut',
+        yPercent: 100,
       },
-      '-=0.4'
+      '-=3.5'
     );
 });
 
@@ -241,3 +242,5 @@ buttons.forEach((button) => {
     });
   });
 });
+
+/// SCROLL TRIGGER ANIMATION
