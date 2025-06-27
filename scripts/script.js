@@ -182,7 +182,50 @@ window.addEventListener('DOMContentLoaded', () => {
         yPercent: 100,
       },
       '-=3.5'
-    );
+    )
+    .to('.intro-text', {
+      scrollTrigger: {
+        trigger: '.intro-text',
+        start: 'top bottom',
+        end: 'bottom 60%',
+
+        scrub: 3,
+
+        toggleActions: 'play none none reverse',
+      },
+      x: 800,
+      rotation: 180,
+      duration: 1.5,
+      ease: 'power2.out',
+    })
+    .from(
+      '.work',
+      {
+        scrollTrigger: {
+          trigger: 'intro-text',
+          start: 'top top',
+          end: 'center center',
+          scrub: 2,
+          toggleActions: 'play none none reverse',
+        },
+        xPercent: -100,
+        ease: 'power2.out',
+      }
+      // '-=3.5'
+    )
+    .from('.web-header h2', {
+      scrollTrigger: {
+        trigger: '.description-text',
+        start: 'top center',
+        end: 'center 20%',
+        scrub: 1,
+        toggleActions: 'play none none reverse',
+      },
+      opacity: 0,
+      yPercent: -100,
+      ease: 'power2.out',
+      stagger: 0.25,
+    });
 });
 
 //// Menu Button Hover
@@ -243,4 +286,25 @@ buttons.forEach((button) => {
   });
 });
 
-/// SCROLL TRIGGER ANIMATION
+/// SCROLL TRIGGER CARDS
+const cards = document.querySelectorAll('.card');
+
+cards.forEach((card, i) => {
+  const cardDirection = i % 2 !== 0 ? -100 : 100;
+  gsap.set(card, {
+    xPercent: cardDirection,
+    opacity: 0,
+  });
+
+  gsap.to(card, {
+    scrollTrigger: {
+      trigger: card,
+      start: 'top center',
+      end: 'bottom 80%',
+      markers: true,
+      toggleActions: 'play none none reverse',
+    },
+    xPercent: 0,
+    opacity: 1,
+  });
+});
