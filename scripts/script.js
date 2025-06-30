@@ -182,37 +182,40 @@ window.addEventListener('DOMContentLoaded', () => {
         yPercent: 100,
       },
       '-=3.5'
-    )
-    .to('.intro-text', {
+    );
+
+  if (window.matchMedia('(min-width: 769px)').matches) {
+    tl.to('.intro-text', {
       scrollTrigger: {
         trigger: '.intro-text',
         start: 'top bottom',
         end: 'bottom 60%',
-
         scrub: 3,
-
         toggleActions: 'play none none reverse',
       },
       x: 800,
       rotation: 180,
+      delay: 0.5,
       duration: 1.5,
       ease: 'power2.out',
-    })
-    .from(
-      '.work',
-      {
-        scrollTrigger: {
-          trigger: 'intro-text',
-          start: 'top top',
-          end: 'center center',
-          scrub: 2,
-          toggleActions: 'play none none reverse',
-        },
-        xPercent: -100,
-        ease: 'power2.out',
-      }
-      // '-=3.5'
-    )
+    });
+  }
+
+  tl.from(
+    '.work',
+    {
+      scrollTrigger: {
+        trigger: 'intro-text',
+        start: 'top top',
+        end: 'center center',
+        scrub: 2,
+        toggleActions: 'play none none reverse',
+      },
+      xPercent: -100,
+      ease: 'power2.out',
+    }
+    // '-=3.5'
+  )
     .from('.web-header h2', {
       scrollTrigger: {
         trigger: '.description-text',
@@ -225,7 +228,37 @@ window.addEventListener('DOMContentLoaded', () => {
       yPercent: -100,
       ease: 'power2.out',
       stagger: 0.25,
+    })
+    .from('#contact h2', {
+      scrollTrigger: {
+        trigger: '.skillz',
+        start: 'top center',
+        end: 'bottom 20%',
+        scrub: 1,
+        toggleActions: 'play none none reverse',
+      },
+      opacity: 0,
+      yPercent: -100,
+      ease: 'power2.out',
+      stagger: 0.25,
     });
+
+  gsap.utils.toArray('.skillz .kugel').forEach((circle, i) => {
+    gsap.from(circle, {
+      scrollTrigger: {
+        trigger: circle,
+        start: 'center 90%',
+        end: 'center 40%',
+        scrub: 1,
+        toggleActions: 'play none none reverse',
+      },
+      x: -150,
+      opacity: 0,
+      duration: 1,
+      ease: 'power2.out',
+      // delay: i * 0.2,
+    });
+  });
 });
 
 //// Menu Button Hover
@@ -301,10 +334,24 @@ cards.forEach((card, i) => {
       trigger: card,
       start: 'top center',
       end: 'bottom 80%',
-      markers: true,
+
       toggleActions: 'play none none reverse',
     },
     xPercent: 0,
     opacity: 1,
   });
+});
+
+const goToTop = document.getElementById('go-to-top');
+
+window.addEventListener('scroll', () => {
+  if (window.innerHeight + window.scrollY >= document.body.offsetHeight - 400) {
+    goToTop.classList.add('visible');
+  } else {
+    goToTop.classList.remove('visible');
+  }
+});
+
+goToTop.addEventListener('click', () => {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
 });

@@ -317,11 +317,17 @@ li {
 }
 .intro-text p {
   font-family: 'Jost';
-  font-size: 2.5em;
-  padding: 3em;
+  font-size: 2.2em;
+  padding: 4em;
   color: white;
   text-align: center;
   margin: 0;
+  line-height: 1.5;
+  border-radius: 50%;
+  /* Optional: add subtle text shadow for readability */
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
+  /* Optional: shape-outside for floated images, not needed here but for reference */
+  /* shape-outside: circle(); */
 }
 
 /* ================================================= */
@@ -375,6 +381,7 @@ li {
   gap: 20px;
   align-items: stretch;
 }
+
 .accordion-item {
   position: relative;
   overflow: hidden;
@@ -606,7 +613,7 @@ figcaption a:hover {
   grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
   background-color: black;
   gap: 4rem;
-  margin: 60px 0;
+  margin: 60px 0 0 0;
   padding: 100px;
 }
 .skillz::before {
@@ -661,11 +668,12 @@ figcaption a:hover {
 #contact h2 {
   font-family: 'Fraunces', serif;
   font-size: 7vw;
-  font-weight: 300;
+  font-weight: 900;
   letter-spacing: 0.05em;
   flex: 1 1 50%;
   z-index: 2;
-  align-self: center;
+  align-self: flex-start;
+  transform: translate3d(0, -2.5rem, 0);
 }
 
 .form-container {
@@ -731,6 +739,47 @@ figcaption a:hover {
   background: black;
   color: white;
   transform: scale(1.15);
+}
+
+/* Go To Top Arrow  */
+#go-to-top {
+  position: fixed;
+  left: 50%;
+  transform: translateX(-50%);
+  bottom: 3rem;
+  width: 3rem;
+  height: 3rem;
+  background: var(--yellow, #ffe75a);
+  color: black;
+  font-size: 2rem;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.15);
+  cursor: pointer;
+  opacity: 0;
+  pointer-events: none;
+  z-index: 1000;
+  transition: opacity 0.3s;
+  animation: pulse 1.2s infinite;
+}
+
+@keyframes pulse {
+  0% {
+    box-shadow: 0 0 0 0 rgba(255, 231, 90, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 12px rgba(255, 231, 90, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(255, 231, 90, 0);
+  }
+}
+
+#go-to-top.visible {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 /* FOOTER */
