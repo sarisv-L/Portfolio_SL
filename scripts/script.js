@@ -211,7 +211,7 @@ window.addEventListener('DOMContentLoaded', () => {
         scrub: 2,
         toggleActions: 'play none none reverse',
       },
-      xPercent: -100,
+      xPercent: -50,
       ease: 'power2.out',
     }
     // '-=3.5'
