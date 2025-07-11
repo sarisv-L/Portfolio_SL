@@ -3,23 +3,45 @@ import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
 if (window.matchMedia('(min-width:769px)').matches) {
-  //   import('https://unpkg.com/lenis@1.3.4/dist/lenis.min.js').then(() => {
-  //     /////// LENIS SCROLLING ////////////////////////////////////////
-  //     // Initialize Lenis
-  //     // Initialize a new Lenis instance for smooth scrolling
-  //     const lenis = new Lenis();
-  //     // Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
-  //     lenis.on('scroll', ScrollTrigger.update);
-  //     // Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
-  //     // This ensures Lenis's smooth scroll animation updates on each GSAP tick
-  //     gsap.ticker.add((time) => {
-  //       lenis.raf(time * 1000); // Convert time from seconds to milliseconds
-  //     });
-  //     // Disable lag smoothing in GSAP to prevent any delay in scroll animations
-  //     gsap.ticker.lagSmoothing(0);
-  //     // Listen for GSAP ScrollTrigger refresh events and update Lenis
-  //     ScrollTrigger.addEventListener('refresh', () => lenis.resize());
-  //   });
+  import('https://unpkg.com/lenis@1.3.4/dist/lenis.min.js').then(() => {
+    /////// LENIS SCROLLING ////////////////////////////////////////
+    // Initialize Lenis
+    // Initialize a new Lenis instance for smooth scrolling
+    const lenis = new Lenis();
+    // Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
+    lenis.on('scroll', ScrollTrigger.update);
+    // Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
+    // This ensures Lenis's smooth scroll animation updates on each GSAP tick
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000); // Convert time from seconds to milliseconds
+    });
+    // Disable lag smoothing in GSAP to prevent any delay in scroll animations
+    gsap.ticker.lagSmoothing(0);
+    // Listen for GSAP ScrollTrigger refresh events and update Lenis
+    ScrollTrigger.addEventListener('refresh', () => lenis.resize());
+  });
+  /// SCROLL TRIGGER CARDS
+  const cards = document.querySelectorAll('.card');
+
+  cards.forEach((card, i) => {
+    const cardDirection = i % 2 !== 0 ? -100 : 100;
+    gsap.set(card, {
+      xPercent: cardDirection,
+      opacity: 0,
+    });
+
+    gsap.to(card, {
+      scrollTrigger: {
+        trigger: card,
+        start: 'top center',
+        end: 'bottom 80%',
+
+        toggleActions: 'play none none reverse',
+      },
+      xPercent: 0,
+      opacity: 1,
+    });
+  });
 }
 
 // Ensure GSAP plugins are registered
@@ -317,29 +339,6 @@ buttons.forEach((button) => {
         gsap.set(link, { clearProps: 'transform' });
       },
     });
-  });
-});
-
-/// SCROLL TRIGGER CARDS
-const cards = document.querySelectorAll('.card');
-
-cards.forEach((card, i) => {
-  const cardDirection = i % 2 !== 0 ? -100 : 100;
-  gsap.set(card, {
-    xPercent: cardDirection,
-    opacity: 0,
-  });
-
-  gsap.to(card, {
-    scrollTrigger: {
-      trigger: card,
-      start: 'top center',
-      end: 'bottom 80%',
-
-      toggleActions: 'play none none reverse',
-    },
-    xPercent: 0,
-    opacity: 1,
   });
 });
 
