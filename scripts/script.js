@@ -2,6 +2,28 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
+if (window.matchMedia('(min-width:769px)').matches) {
+  import('https://unpkg.com/lenis@1.3.4/dist/lenis.min.js').then(() => {
+    /////// LENIS SCROLLING ////////////////////////////////////////
+
+    // Initialize Lenis
+    // Initialize a new Lenis instance for smooth scrolling
+    const lenis = new Lenis();
+
+    // Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
+    lenis.on('scroll', ScrollTrigger.update);
+
+    // Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
+    // This ensures Lenis's smooth scroll animation updates on each GSAP tick
+    gsap.ticker.add((time) => {
+      lenis.raf(time * 1000); // Convert time from seconds to milliseconds
+    });
+
+    // Disable lag smoothing in GSAP to prevent any delay in scroll animations
+    gsap.ticker.lagSmoothing(0);
+  });
+}
+
 // Ensure GSAP plugins are registered
 gsap.registerPlugin(ScrollTrigger);
 
@@ -115,24 +137,6 @@ const resetFace = (event) => {
 // Mouse move event listener
 faceCircle.addEventListener('mousemove', activateFace);
 faceCircle.addEventListener('mouseleave', resetFace);
-
-/////// LENIS SCROLLING ////////////////////////////////////////
-
-// Initialize Lenis
-// Initialize a new Lenis instance for smooth scrolling
-const lenis = new Lenis();
-
-// Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
-lenis.on('scroll', ScrollTrigger.update);
-
-// Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
-// This ensures Lenis's smooth scroll animation updates on each GSAP tick
-gsap.ticker.add((time) => {
-  lenis.raf(time * 1000); // Convert time from seconds to milliseconds
-});
-
-// Disable lag smoothing in GSAP to prevent any delay in scroll animations
-gsap.ticker.lagSmoothing(0);
 
 //////// GSAP Animation //////////////////////////
 
