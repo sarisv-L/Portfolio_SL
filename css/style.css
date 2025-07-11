@@ -258,6 +258,7 @@ html.lenis body {
   color: white;
   font-family: Fraunces;
   font-size: 2em;
+  padding: 1em;
   text-align: center;
   display: flex;
   align-items: center;
