@@ -836,6 +836,13 @@ figcaption a:hover {
     width: 100%;
   }
 
+  #nav-elements .menu-button a {
+    display: flex;
+    width: 100%;
+    height: 100%;
+    padding: 1em;
+  }
+
   #nav-elements {
     position: static;
     left: unset;
@@ -856,7 +863,7 @@ figcaption a:hover {
 
   #nav-elements li {
     margin: 0.5rem 0;
-    width: 80vw;
+    /* width: 80vw; */
     max-width: 350px;
   }
 
