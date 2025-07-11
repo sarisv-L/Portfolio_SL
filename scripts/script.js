@@ -1,6 +1,8 @@
 // ...existing code...
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
+// Ensure GSAP plugins are registered
+gsap.registerPlugin(ScrollTrigger);
 
 if (window.matchMedia('(min-width:769px)').matches) {
   import('https://unpkg.com/lenis@1.3.4/dist/lenis.min.js').then(() => {
@@ -43,9 +45,6 @@ if (window.matchMedia('(min-width:769px)').matches) {
     });
   });
 }
-
-// Ensure GSAP plugins are registered
-gsap.registerPlugin(ScrollTrigger);
 
 let accordionsItems = document.querySelectorAll('.accordion-item');
 
@@ -222,6 +221,64 @@ window.addEventListener('DOMContentLoaded', () => {
       duration: 1.5,
       ease: 'power2.out',
     });
+
+    //// Menu Button Hover
+    // Animate on hover using GSAP
+    const buttons = document.querySelectorAll('.menu-button');
+
+    buttons.forEach((button) => {
+      const link = button.querySelector('a');
+
+      button.addEventListener('mouseenter', () => {
+        // Kill any running tweens to prevent overlap
+        gsap.killTweensOf([button, link]);
+        // bounce + scale effect
+        gsap.to(button, {
+          scale: 1.2,
+          y: -5,
+          duration: 0.4,
+          ease: 'ease.out',
+          overwrite: 'auto',
+        });
+
+        // offset text slightly
+        gsap.to(link, {
+          x: 4,
+          y: -2,
+          duration: 0.3,
+          ease: 'power2.out',
+          overwrite: 'auto',
+        });
+      });
+
+      button.addEventListener('mouseleave', () => {
+        // Kill any running tweens to prevent overlap
+        gsap.killTweensOf([button, link]);
+        // reset scale and remove inline transforms to ensure proper reset
+        gsap.to(button, {
+          scale: 1,
+          y: 0,
+          duration: 0.2,
+          ease: 'power2.inOut',
+          overwrite: 'auto',
+          onComplete: () => {
+            gsap.set(button, { clearProps: 'transform' });
+          },
+        });
+
+        // reset text offset
+        gsap.to(link, {
+          x: 0,
+          y: 0,
+          duration: 0.2,
+          ease: 'power2.inOut',
+          overwrite: 'auto',
+          onComplete: () => {
+            gsap.set(link, { clearProps: 'transform' });
+          },
+        });
+      });
+    });
   }
 
   tl.from(
@@ -280,64 +337,6 @@ window.addEventListener('DOMContentLoaded', () => {
       duration: 1,
       ease: 'power2.out',
       // delay: i * 0.2,
-    });
-  });
-});
-
-//// Menu Button Hover
-// Animate on hover using GSAP
-const buttons = document.querySelectorAll('.menu-button');
-
-buttons.forEach((button) => {
-  const link = button.querySelector('a');
-
-  button.addEventListener('mouseenter', () => {
-    // Kill any running tweens to prevent overlap
-    gsap.killTweensOf([button, link]);
-    // bounce + scale effect
-    gsap.to(button, {
-      scale: 1.2,
-      y: -5,
-      duration: 0.4,
-      ease: 'ease.out',
-      overwrite: 'auto',
-    });
-
-    // offset text slightly
-    gsap.to(link, {
-      x: 4,
-      y: -2,
-      duration: 0.3,
-      ease: 'power2.out',
-      overwrite: 'auto',
-    });
-  });
-
-  button.addEventListener('mouseleave', () => {
-    // Kill any running tweens to prevent overlap
-    gsap.killTweensOf([button, link]);
-    // reset scale and remove inline transforms to ensure proper reset
-    gsap.to(button, {
-      scale: 1,
-      y: 0,
-      duration: 0.2,
-      ease: 'power2.inOut',
-      overwrite: 'auto',
-      onComplete: () => {
-        gsap.set(button, { clearProps: 'transform' });
-      },
-    });
-
-    // reset text offset
-    gsap.to(link, {
-      x: 0,
-      y: 0,
-      duration: 0.2,
-      ease: 'power2.inOut',
-      overwrite: 'auto',
-      onComplete: () => {
-        gsap.set(link, { clearProps: 'transform' });
-      },
     });
   });
 });

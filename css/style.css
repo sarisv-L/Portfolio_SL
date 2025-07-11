@@ -830,6 +830,11 @@ figcaption a:hover {
     padding: 2rem 0;
   }
 
+  #nav-elements .menu-button {
+    border-radius: 0;
+    width: 100%;
+  }
+
   #nav-elements {
     position: static;
     left: unset;
