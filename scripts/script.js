@@ -2,29 +2,25 @@
 import { gsap } from 'gsap';
 import { ScrollTrigger } from 'gsap/ScrollTrigger';
 
-// if (window.matchMedia('(min-width:769px)').matches) {
-//   import('https://unpkg.com/lenis@1.3.4/dist/lenis.min.js').then(() => {
-//     /////// LENIS SCROLLING ////////////////////////////////////////
-
-//     // Initialize Lenis
-//     // Initialize a new Lenis instance for smooth scrolling
-//     const lenis = new Lenis();
-
-//     // Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
-//     lenis.on('scroll', ScrollTrigger.update);
-
-//     // Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
-//     // This ensures Lenis's smooth scroll animation updates on each GSAP tick
-//     gsap.ticker.add((time) => {
-//       lenis.raf(time * 1000); // Convert time from seconds to milliseconds
-//     });
-
-//     // Disable lag smoothing in GSAP to prevent any delay in scroll animations
-//     gsap.ticker.lagSmoothing(0);
-//     // Listen for GSAP ScrollTrigger refresh events and update Lenis
-//     ScrollTrigger.addEventListener('refresh', () => lenis.resize());
-//   });
-// }
+if (window.matchMedia('(min-width:769px)').matches) {
+  //   import('https://unpkg.com/lenis@1.3.4/dist/lenis.min.js').then(() => {
+  //     /////// LENIS SCROLLING ////////////////////////////////////////
+  //     // Initialize Lenis
+  //     // Initialize a new Lenis instance for smooth scrolling
+  //     const lenis = new Lenis();
+  //     // Synchronize Lenis scrolling with GSAP's ScrollTrigger plugin
+  //     lenis.on('scroll', ScrollTrigger.update);
+  //     // Add Lenis's requestAnimationFrame (raf) method to GSAP's ticker
+  //     // This ensures Lenis's smooth scroll animation updates on each GSAP tick
+  //     gsap.ticker.add((time) => {
+  //       lenis.raf(time * 1000); // Convert time from seconds to milliseconds
+  //     });
+  //     // Disable lag smoothing in GSAP to prevent any delay in scroll animations
+  //     gsap.ticker.lagSmoothing(0);
+  //     // Listen for GSAP ScrollTrigger refresh events and update Lenis
+  //     ScrollTrigger.addEventListener('refresh', () => lenis.resize());
+  //   });
+}
 
 // Ensure GSAP plugins are registered
 gsap.registerPlugin(ScrollTrigger);
@@ -145,52 +141,51 @@ faceCircle.addEventListener('mouseleave', resetFace);
 window.addEventListener('DOMContentLoaded', () => {
   const tl = gsap.timeline({ defaults: { ease: 'power2.out', duration: 1.2 } });
 
-  tl.from('.menu-button', {
-    opacity: 0,
-    y: -80,
-    scale: 1,
-    duration: 1.5,
-    stagger: 0.25,
-  })
-    // Start menu buttons as circles above their final position
-
-    .from(
-      '#logo',
-      {
-        x: -400,
-        y: -300,
-        opacity: 0,
-        scale: 0,
-        xPercent: -100,
-        ease: 'back.out(1.2)',
-      },
-      '-=1'
-    )
-
-    .from(
-      '.profile-pic',
-      {
-        x: -400,
-        y: -300,
-        opacity: 0,
-        scale: 0,
-        duration: 2,
-        ease: 'back.out(1.2)',
-      },
-      '-=0.2'
-    )
-    .from(
-      '.intro-text',
-      {
-        opacity: 0,
-        duration: 4,
-        ease: 'expo.inOut',
-        yPercent: 100,
-      },
-      '-=3.5'
-    );
-
   if (window.matchMedia('(min-width: 769px)').matches) {
+    tl.from('.menu-button', {
+      opacity: 0,
+      y: -80,
+      scale: 1,
+      duration: 1.5,
+      stagger: 0.25,
+    })
+      // Start menu buttons as circles above their final position
+
+      .from(
+        '#logo',
+        {
+          x: -400,
+          y: -300,
+          opacity: 0,
+          scale: 0,
+          xPercent: -100,
+          ease: 'back.out(1.2)',
+        },
+        '-=1'
+      )
+
+      .from(
+        '.profile-pic',
+        {
+          x: -400,
+          y: -300,
+          opacity: 0,
+          scale: 0,
+          duration: 2,
+          ease: 'back.out(1.2)',
+        },
+        '-=0.2'
+      )
+      .from(
+        '.intro-text',
+        {
+          opacity: 0,
+          duration: 4,
+          ease: 'expo.inOut',
+          yPercent: 100,
+        },
+        '-=3.5'
+      );
     tl.to('.intro-text', {
       scrollTrigger: {
         trigger: '.intro-text',

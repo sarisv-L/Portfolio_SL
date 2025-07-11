@@ -71,6 +71,7 @@ body {
   /* 5. Improve text rendering */
   -webkit-font-smoothing: antialiased;
   /* overflow: hidden; */
+  overflow-x: hidden;
 }
 /* 6. Improve media defaults */
 img,
