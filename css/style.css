@@ -324,12 +324,12 @@ li {
 }
 .intro-text p {
   font-family: 'Jost';
-  font-size: 2.2em;
-  padding: 4em;
+  font-size: 2em;
+  padding: 2em;
   color: white;
   text-align: center;
   margin: 0;
-  line-height: 1.5;
+  line-height: 1.6;
   border-radius: 50%;
   /* Optional: add subtle text shadow for readability */
   text-shadow: 0 2px 8px rgba(0, 0, 0, 0.25);
@@ -506,7 +506,7 @@ li {
 
 .description-text {
   margin: 60px 120px;
-  max-width: 300px;
+  max-width: 420px;
 }
 
 .rhinoceros {
@@ -695,68 +695,14 @@ figcaption a:hover {
   margin: 0 auto;
 }
 
-.contact-form {
-  display: flex;
-  flex-direction: column;
-  gap: 1.5rem;
-  align-items: flex-end;
-  background: transparent;
-  padding: 0 4vw 0 0;
-  width: 100%;
-  max-width: 400px;
-  z-index: 2;
-}
-
-.contact-form input,
-.contact-form textarea {
-  width: 350px;
-  max-width: 90vw;
-  padding: 0.8em 1.5em;
-  border-radius: 2em;
-  border: none;
-  background: #f6f6f6;
-  font-size: 1.2rem;
-  font-family: 'Jost', sans-serif;
-  color: #222;
-  box-shadow: none;
-  outline: none;
-  resize: none;
-}
-
-.contact-form textarea {
-  min-height: 3.5em;
-  max-height: 8em;
-}
-
-.contact-form button {
-  background: var(--yellow);
-  color: black;
-  font-family: 'Fraunces', serif;
-  font-weight: 900;
-  font-size: 1.25rem;
-  border: none;
-  border-radius: 2em;
-  padding: 0.5em 2.5em;
-  margin-top: 0.5em;
-  box-shadow: none;
-  cursor: pointer;
-  transition: background 0.2s, color 0.2s, transform 0.2s;
-}
-
-.contact-form button:hover {
-  background: black;
-  color: white;
-  transform: scale(1.15);
-}
-
 /* Go To Top Arrow  */
 #go-to-top {
   position: fixed;
   left: 50%;
   transform: translateX(-50%);
   bottom: 3rem;
-  width: 3rem;
-  height: 3rem;
+  width: 3.5rem;
+  height: 3.5rem;
   background: var(--yellow, #ffe75a);
   color: black;
   font-size: 2rem;
@@ -770,12 +716,11 @@ figcaption a:hover {
   pointer-events: none;
   z-index: 1000;
   transition: opacity 0.3s;
-  animation: pulse 1.2s infinite;
 }
 
 @keyframes pulse {
   0% {
-    box-shadow: 0 0 0 0 rgba(255, 231, 90, 0.7);
+    box-shadow: 0 0 0 0 rgba(0, 0, 0, 0.7);
   }
   70% {
     box-shadow: 0 0 0 12px rgba(255, 231, 90, 0);
@@ -791,6 +736,47 @@ figcaption a:hover {
 }
 
 /* FOOTER */
+
+#email-container a {
+  display: inline-block;
+  padding: 12px 24px;
+  border-radius: 200px;
+  background: black;
+  font-family: 'Jost', sans-serif;
+  font-size: 1.5rem;
+  color: #ffffff;
+  text-decoration: none;
+  transition: background 0.3s, color 0.3s, transform 0.3s;
+  animation: pulse 1.2s infinite;
+}
+
+#email-container a:hover {
+  background: var(--yellow);
+  color: black;
+}
+
+#contact {
+  position: relative;
+}
+
+#contact p {
+  font-size: 1.5rem;
+  font-weight: 300;
+  margin-bottom: 1rem;
+  color: black;
+}
+
+.mail {
+  position: absolute;
+  display: flex;
+  gap: 32px;
+  flex-direction: column;
+}
+
+#email-container {
+  margin-top: 0.5rem;
+  align-self: center;
+}
 
 #footer {
   display: flex;

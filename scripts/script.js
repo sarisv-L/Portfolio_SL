@@ -354,3 +354,16 @@ window.addEventListener('scroll', () => {
 goToTop.addEventListener('click', () => {
   window.scrollTo({ top: 0, behavior: 'smooth' });
 });
+
+// E-Mail-Adresse zusammensetzen
+const user = 'sarisv';
+const domain = 'gmx.de';
+const email = `${user}@${domain}`;
+
+// Link erstellen und in den Container einfügen
+const emailContainer = document.getElementById('email-container');
+const link = document.createElement('a');
+link.href = `mailto:${email}`;
+link.textContent = email;
+
+emailContainer.appendChild(link);
