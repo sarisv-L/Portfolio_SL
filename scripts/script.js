@@ -182,7 +182,7 @@ window.addEventListener('DOMContentLoaded', () => {
           xPercent: -100,
           ease: 'back.out(1.2)',
         },
-        '-=1'
+        '-=1',
       )
 
       .from(
@@ -195,7 +195,7 @@ window.addEventListener('DOMContentLoaded', () => {
           duration: 2,
           ease: 'back.out(1.2)',
         },
-        '-=0.2'
+        '-=0.2',
       )
       .from(
         '.intro-text',
@@ -205,7 +205,7 @@ window.addEventListener('DOMContentLoaded', () => {
           ease: 'expo.inOut',
           yPercent: 100,
         },
-        '-=3.5'
+        '-=3.5',
       );
     tl.to('.intro-text', {
       scrollTrigger: {
@@ -293,7 +293,7 @@ window.addEventListener('DOMContentLoaded', () => {
       },
       xPercent: -50,
       ease: 'power2.out',
-    }
+    },
     // '-=3.5'
   )
     .from('.web-header h2', {
@@ -356,8 +356,8 @@ goToTop.addEventListener('click', () => {
 });
 
 // E-Mail-Adresse zusammensetzen
-const user = 'sarisv';
-const domain = 'gmx.de';
+const user = 'kontakt';
+const domain = 'lasha.digital';
 const email = `${user}@${domain}`;
 
 // Link erstellen und in den Container einfügen
