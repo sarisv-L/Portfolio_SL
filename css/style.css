@@ -887,14 +887,15 @@ figcaption a:hover {
     /* padding: 1rem; */
   }
   .intro-text p {
+    text-align: justify;
     font-size: 1.5rem;
-    padding: 1.3rem;
+    max-width: 35ch;
     /* line-height: 1.7rem; */
   }
 
   .description-text p {
-    width: 30ch;
-    text-align: center;
+    width: 25ch;
+    text-align: justify;
     /* margin: 2rem; */
     /* max-width: 100%; */
   }
