@@ -888,14 +888,17 @@ figcaption a:hover {
   }
   .intro-text p {
     text-align: justify;
+    text-justify: inter-word;
+    /* text-justify: inter-character; */
     font-size: 1.5rem;
-    max-width: 35ch;
+    max-width: 22em;
     /* line-height: 1.7rem; */
   }
 
   .description-text p {
-    width: 25ch;
+    width: 16em;
     text-align: justify;
+    text-justify: inter-word;
     /* margin: 2rem; */
     /* max-width: 100%; */
   }
