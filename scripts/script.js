@@ -50,12 +50,130 @@ let accordionsItems = document.querySelectorAll('.accordion-item');
 
 accordionsItems.forEach((item) => {
   item.addEventListener('click', () => {
-    accordionsItems.forEach((item) => {
-      item.classList.remove('opened');
+    if (item.classList.contains('opened')) return;
+
+    accordionsItems.forEach((otherItem) => {
+      otherItem.classList.remove('opened');
     });
 
     item.classList.add('opened');
   });
+});
+
+accordionsItems.forEach((item) => {
+  const video = item.querySelector('.project-video');
+  const toggle = item.querySelector('.video-toggle');
+  if (!video || !toggle) return;
+
+  const syncPlayingState = () => {
+    const isPlaying = !video.paused && !video.ended;
+    item.classList.toggle('is-playing', isPlaying);
+    toggle.setAttribute(
+      'aria-label',
+      isPlaying ? 'Video pausieren' : 'Video abspielen',
+    );
+  };
+
+  const playVideo = () => {
+    video.play().catch(() => {});
+  };
+
+  const pauseVideo = () => {
+    video.pause();
+    syncPlayingState();
+  };
+
+  toggle.addEventListener('click', (event) => {
+    event.stopPropagation();
+    if (!item.classList.contains('opened')) {
+      item.click();
+    }
+    if (video.paused) {
+      playVideo();
+    } else {
+      pauseVideo();
+    }
+  });
+
+  const muteToggle = item.querySelector('.video-mute');
+
+  const syncMutedState = () => {
+    item.classList.toggle('is-muted', video.muted);
+    if (!muteToggle) return;
+    muteToggle.setAttribute('aria-pressed', String(video.muted));
+    muteToggle.setAttribute(
+      'aria-label',
+      video.muted ? 'Ton einschalten' : 'Ton ausschalten',
+    );
+  };
+
+  if (muteToggle) {
+    muteToggle.addEventListener('click', (event) => {
+      event.stopPropagation();
+      video.muted = !video.muted;
+    });
+    video.addEventListener('volumechange', syncMutedState);
+    syncMutedState();
+  }
+
+  const scrub = item.querySelector('.video-scrub');
+
+  if (scrub) {
+    let isScrubbing = false;
+    let frameId = null;
+
+    const renderProgress = () => {
+      if (!video.duration || isScrubbing) return;
+      const ratio = video.currentTime / video.duration;
+      scrub.value = String(Math.round(ratio * 1000));
+      scrub.style.setProperty('--progress', `${ratio * 100}%`);
+    };
+
+    // Nur solange das Video läuft, pro Frame den Balken nachziehen
+    const tick = () => {
+      renderProgress();
+      frameId = video.paused ? null : requestAnimationFrame(tick);
+    };
+
+    const seekFromScrub = () => {
+      const ratio = Number(scrub.value) / 1000;
+      scrub.style.setProperty('--progress', `${ratio * 100}%`);
+      if (video.duration) video.currentTime = ratio * video.duration;
+    };
+
+    scrub.addEventListener('click', (event) => event.stopPropagation());
+    scrub.addEventListener('pointerdown', () => {
+      isScrubbing = true;
+    });
+    scrub.addEventListener('input', seekFromScrub);
+    scrub.addEventListener('change', () => {
+      isScrubbing = false;
+      seekFromScrub();
+    });
+    window.addEventListener('pointerup', () => {
+      isScrubbing = false;
+    });
+
+    video.addEventListener('play', () => {
+      if (frameId === null) frameId = requestAnimationFrame(tick);
+    });
+    video.addEventListener('seeked', renderProgress);
+    video.addEventListener('loadedmetadata', renderProgress);
+  }
+
+  video.addEventListener('play', syncPlayingState);
+  video.addEventListener('pause', syncPlayingState);
+  video.addEventListener('ended', () => {
+    video.currentTime = 0;
+    syncPlayingState();
+  });
+
+  const observer = new MutationObserver(() => {
+    if (!item.classList.contains('opened')) {
+      pauseVideo();
+    }
+  });
+  observer.observe(item, { attributes: true, attributeFilter: ['class'] });
 });
 
 ////// Slideshow Integration

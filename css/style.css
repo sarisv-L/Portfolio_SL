@@ -534,20 +534,162 @@ li {
   transform: translateY(100%);
   pointer-events: none;
 }
-.accordion-item:not(.opened) figure img {
+.accordion-item:not(.opened) figure img,
+.accordion-item:not(.opened) figure .project-video {
   transform: scale(1.2);
   transition:
     transform 0.3s ease-in-out,
     filter 0.3s ease-in-out;
   filter: grayscale(1) saturate(0.75) brightness(0.85);
 }
-.accordion-item:not(.opened):hover img {
+.accordion-item:not(.opened):hover img,
+.accordion-item:not(.opened):hover .project-video {
   filter: grayscale(0) saturate(1) brightness(0.85);
 
   transform: scale(1);
 }
-.accordion-item img {
+.accordion-item img,
+.accordion-item .project-video {
   transition: transform 0.3s ease-in-out;
+}
+
+.accordion-item .project-video {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  z-index: 1;
+}
+
+.video-controls {
+  position: absolute;
+  z-index: 4;
+  right: 1.25rem;
+  bottom: 1.5rem;
+  display: flex;
+  gap: 0.5rem;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.accordion-item.opened .video-controls {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.video-toggle,
+.video-mute {
+  width: 2.75rem;
+  height: 2.75rem;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: rgba(0, 0, 0, 0.55);
+  color: var(--yellow);
+  cursor: pointer;
+  display: grid;
+  place-items: center;
+  transition: background 0.2s ease-in-out;
+}
+
+.video-toggle:hover,
+.video-mute:hover {
+  background: rgba(0, 0, 0, 0.75);
+}
+
+.video-controls svg {
+  width: 1.35rem;
+  height: 1.35rem;
+  fill: currentColor;
+}
+
+.video-controls .icon-pause,
+.video-controls .icon-muted,
+.accordion-item.is-playing .icon-play,
+.accordion-item.is-muted .icon-sound {
+  display: none;
+}
+
+.accordion-item.is-playing .icon-pause,
+.accordion-item.is-muted .icon-muted {
+  display: block;
+}
+
+.video-scrub {
+  --progress: 0%;
+  position: absolute;
+  z-index: 4;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1rem;
+  margin: 0;
+  background: transparent;
+  cursor: pointer;
+  appearance: none;
+  -webkit-appearance: none;
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease-in-out;
+}
+
+.accordion-item.opened .video-scrub {
+  opacity: 1;
+  pointer-events: auto;
+}
+
+.video-scrub::-webkit-slider-runnable-track {
+  height: 0.25rem;
+  background: linear-gradient(
+    to right,
+    var(--yellow) var(--progress),
+    rgba(255, 255, 255, 0.3) var(--progress)
+  );
+  transition: height 0.2s ease-in-out;
+}
+
+.video-scrub::-moz-range-track {
+  height: 0.25rem;
+  background: linear-gradient(
+    to right,
+    var(--yellow) var(--progress),
+    rgba(255, 255, 255, 0.3) var(--progress)
+  );
+  transition: height 0.2s ease-in-out;
+}
+
+.video-scrub:hover::-webkit-slider-runnable-track {
+  height: 0.4rem;
+}
+
+.video-scrub:hover::-moz-range-track {
+  height: 0.4rem;
+}
+
+.video-scrub::-webkit-slider-thumb {
+  -webkit-appearance: none;
+  width: 0.8rem;
+  height: 0.8rem;
+  margin-top: -0.275rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--yellow);
+}
+
+.video-scrub:hover::-webkit-slider-thumb {
+  margin-top: -0.2rem;
+}
+
+.video-scrub::-moz-range-thumb {
+  width: 0.8rem;
+  height: 0.8rem;
+  border: none;
+  border-radius: 50%;
+  background: var(--yellow);
 }
 
 .accordion-item.opened figcaption {
@@ -993,7 +1135,8 @@ figcaption a:hover {
     height: auto;
   }
 
-  .work-3d figure img {
+  .work-3d figure img,
+  .work-3d figure .project-video {
     object-fit: cover;
   }
 
